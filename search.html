@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Flights | Wanderly
+{% endblock %}
+
+{% block content %}
+
+<section class="search-header">
+
+    <div class="container py-5">
+
+        <p class="eyebrow">
+            FLIGHT SEARCH
+        </p>
+
+        <h1>
+            Where are you going?
+        </h1>
+
+
+        <form
+            method="POST"
+            class="search-form row g-3"
+        >
+
+            <div class="col-md-3">
+
+                <label>
+                    From
+                </label>
+
+                <input
+                    type="text"
+                    name="origin"
+                    maxlength="3"
+                    placeholder="DEL"
+                    value="{{ form_data.origin }}"
+                    class="form-control airport-input"
+                    required
+                >
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <label>
+                    To
+                </label>
+
+                <input
+                    type="text"
+                    name="destination"
+                    maxlength="3"
+                    placeholder="GOI"
+                    value="{{ form_data.destination }}"
+                    class="form-control airport-input"
+                    required
+                >
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <label>
+                    Departure
+                </label>
+
+                <input
+                    type="date"
+                    name="date"
+                    value="{{ form_data.date }}"
+                    class="form-control"
+                    required
+                >
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <label>
+                    Travellers
+                </label>
+
+                <input
+                    type="number"
+                    name="adults"
+                    min="1"
+                    max="9"
+                    value="{{ form_data.adults }}"
+                    class="form-control"
+                >
+
+            </div>
+
+
+            <div class="col-md-1 d-flex align-items-end">
+
+                <button
+                    class="btn pink-btn w-100"
+                >
+                    Search
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<section class="container py-5">
+
+{% if searched %}
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <div>
+
+            <h3>
+                {{ form_data.origin }}
+                →
+                {{ form_data.destination }}
+            </h3>
+
+            <p class="text-muted">
+                {{ form_data.date }}
+            </p>
+
+        </div>
+
+        <span class="badge bg-light text-dark">
+            {{ data_source }}
+        </span>
+
+    </div>
+
+
+    {% for flight in flights %}
+
+    <div class="flight-card mb-3">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-2">
+
+                <strong>
+                    {{ flight.airline }}
+                </strong>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <strong>
+                    {{ flight.departure }}
+                </strong>
+
+                {{ flight.origin }}
+
+                →
+
+                <strong>
+                    {{ flight.arrival }}
+                </strong>
+
+                {{ flight.destination }}
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                {{ flight.duration }}
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <strong>
+                    {{ flight.price }}
+                </strong>
+
+            </div>
+
+
+            <div class="col-md-3 text-md-end">
+
+                <form
+                    method="POST"
+                    action="{{ url_for('book') }}"
+                >
+
+                    <input
+                        type="hidden"
+                        name="origin"
+                        value="{{ flight.origin }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="destination"
+                        value="{{ flight.destination }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="date"
+                        value="{{ flight.date }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="airline"
+                        value="{{ flight.airline }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="departure"
+                        value="{{ flight.departure }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="arrival"
+                        value="{{ flight.arrival }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="price"
+                        value="{{ flight.price }}"
+                    >
+
+                    <button
+                        class="btn btn-dark rounded-pill px-4"
+                    >
+                        Book Now
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty-state">
+
+        <h3>
+            Search for your next flight ✈
+        </h3>
+
+        <p>
+            Enter your departure and destination airport codes.
+        </p>
+
+    </div>
+
+{% endif %}
+
+</section>
+
+{% endblock %}

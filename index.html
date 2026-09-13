@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}
+Wanderly | Travel Booking
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <p class="eyebrow">
+                    TRAVEL • EXPLORE • DISCOVER
+                </p>
+
+                <h1>
+                    Your journey
+                    <span>starts here.</span>
+                </h1>
+
+                <p class="hero-text">
+
+                    Search flights, discover destinations
+                    and manage your bookings in one beautiful
+                    travel platform.
+
+                </p>
+
+                {% if session.get("user_id") %}
+
+                <a
+                    href="{{ url_for('search') }}"
+                    class="btn pink-btn btn-lg rounded-pill px-5"
+                >
+                    Search Flights
+                </a>
+
+                {% else %}
+
+                <a
+                    href="{{ url_for('register') }}"
+                    class="btn pink-btn btn-lg rounded-pill px-5"
+                >
+                    Start Your Journey
+                </a>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="col-lg-5">
+
+                <div class="destination-card">
+
+                    <p>POPULAR DESTINATION</p>
+
+                    <h2>
+                        Delhi → Goa
+                    </h2>
+
+                    <div class="route"></div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>DEL</span>
+
+                        <span>GOI</span>
+
+                    </div>
+
+                    <div class="price-box">
+
+                        <small>
+                            Starting from
+                        </small>
+
+                        <h3>
+                            ₹6,499
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <p class="eyebrow">
+            WHY WANDERLY
+        </p>
+
+        <h2>
+            Travel made simple
+        </h2>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ✈
+                </div>
+
+                <h4>
+                    Real-time search
+                </h4>
+
+                <p>
+                    Search flight availability using
+                    an external travel API.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h4>
+                    Secure login
+                </h4>
+
+                <p>
+                    Users can register, login and
+                    securely manage their account.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ✓
+                </div>
+
+                <h4>
+                    Easy booking
+                </h4>
+
+                <p>
+                    Select a flight and save the
+                    booking in your personal dashboard.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
